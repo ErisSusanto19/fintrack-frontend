@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Finance Tracker - Front-End
 
-## Getting Started
+## 1. Introduction
 
-First, run the development server:
+This is the Front-End project for the Finance Tracker application, built with Next.js and TypeScript. This project serves as the user interface (UI) to interact with the [Finance Tracker Backend API](https://github.com/ErisSusanto19/fintrack-backend).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 2. Core Features (Roadmap)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [x] User Authentication (Login & Register)
+- [ ] Dashboard (Financial Overview)
+- [ ] Transaction Management (CRUD)
+- [ ] Account Management (CRUD)
+- [ ] Category Management (CRUD)
+- [ ] Budgeting
+- [ ] Reporting & Analytics
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 3. Technology Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework:** Next.js 14+ (App Router)
+- **Language:** TypeScript
+- **State Management:** Redux Toolkit
+- **Styling:** Tailwind CSS
+- **UI Components:** shadcn/ui
+- **Icons:** Lucide React
+- **API Communication:** Axios
+- **Form Management:** React Hook Form & Zod
 
-## Learn More
+## 4. Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+This project follows an organized folder structure designed for scalability:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `src/app`: Routing and pages using the App Router.
+- `src/components`: Reusable UI components.
+- `src/lib`: Utilities, API configuration (Axios), and helpers.
+- `src/store`: All Redux logic (store, slices, thunks).
+- `src/types`: Global TypeScript type definitions.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 5. Getting Started
 
-## Deploy on Vercel
+### Prerequisites
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Node.js (v18 or later)
+- npm / yarn / pnpm
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Installation & Running Locally
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/ErisSusanto19/fintrack-backend]
+    cd fintrack-frontend
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+
+The application will be available at [http://localhost:3000](http://localhost:3000).
