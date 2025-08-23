@@ -23,10 +23,11 @@ import {
     FormLabel,
     FormMessage
 } from '@/components/ui/form';
-import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '@/store/hook';
-import { useRouter } from 'next/router';
-import { loginUser } from '@/store/features/authSlice';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { useRouter } from 'next/navigation';
+import { loginUser } from '@/store/features/auth';
+import { toast } from 'sonner';
 
 const formSchema = z.object({
     email: z
@@ -43,8 +44,14 @@ const LoginPage = () => {
 
     const [showPassword, setShowPassword] = useState(false)
     const dispatch = useAppDispatch();
-    // const router = useRouter();
+    const router = useRouter();
     const { loading, error } = useAppSelector(state => state.auth)
+
+    useEffect(()=>{
+        if (error) {
+            toast.error(error)
+        }
+    }, [error])
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -58,10 +65,12 @@ const LoginPage = () => {
         const resultAction = await dispatch(loginUser(values));
 
         if(loginUser.fulfilled.match(resultAction)){
-            alert("Login successfully")
-            // router.push('/')
+            toast.success("Login successfully!");
+            router.push('/');
         }
     }
+
+    const isLoading = loading === 'pending';
 
     return (
         <div className='flex items-center justify-center min-h-screen bg-gray-100'>
@@ -115,13 +124,13 @@ const LoginPage = () => {
                             />
                         </CardContent>
                         <CardFooter className='mt-4'>
-                            <Button className='w-full'>
-                                {loading? (
+                            <Button className='w-full' disabled={isLoading}>
+                                {isLoading? (
                                     <Loader2 className='w-4 h-4 mr-2 animate-spin'/>
                                 ):(
                                     <LogIn className='w-4 h-4 mr-2'/>
                                 )}
-                                {loading? "Logging in..." : "Login"}
+                                {isLoading? "Logging in..." : "Login"}
                             </Button>
                         </CardFooter>
                     </form>

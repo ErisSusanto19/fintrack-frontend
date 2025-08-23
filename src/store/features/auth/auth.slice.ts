@@ -1,24 +1,14 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import api from '../../lib/api'
-import { User } from '../../types'
-
-interface LoginPayload {
-    email: string;
-    password: string;
-}
-
-interface LoginSuccessPayload {
-    accessToken: string;
-    refreshToken: string;
-    user: User;
-}
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { loginUser } from './auth.thunk';
+import { User } from '../../../types'
+import { AuthLoginSuccessPayload } from '@/types/auth.type';
 
 interface AuthState {
     token: string | null;
     refreshToken: string | null;
     isAuthenticated: boolean;
     user: User | null;
-    loading: boolean;
+    loading: 'idle' | 'pending' | 'succeeded' | 'failed';
     error: string | null;
 }
 
@@ -27,27 +17,9 @@ const initialState: AuthState = {
     refreshToken: null,
     isAuthenticated: false,
     user: null,
-    loading: false,
+    loading: 'idle',
     error: null
 }
-
-export const loginUser = createAsyncThunk(
-    'auth/login',
-    async (loginData: LoginPayload, { rejectWithValue }) => {
-        try {
-            const response = await api.post('/auth/login', loginData)            
-
-            if(response.data.success){
-                return response.data.data as LoginSuccessPayload;
-            } else{
-                return rejectWithValue(response.data.error.message)
-            }
-        } catch (error: any) {
-            const errorMessage = error.response?.data?.error?.message || 'Login failed.'
-            return rejectWithValue(errorMessage);
-        }
-    }
-)
 
 const authSlice = createSlice({
     name: 'auth',
@@ -67,18 +39,18 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(loginUser.pending, (state) => {
-                state.loading = true;
+                state.loading = 'pending';
                 state.error = null;
             })
-            .addCase(loginUser.fulfilled, (state, action: PayloadAction<LoginSuccessPayload>) => {
-                state.loading = false;
+            .addCase(loginUser.fulfilled, (state, action: PayloadAction<AuthLoginSuccessPayload>) => {
+                state.loading = 'succeeded';
                 state.isAuthenticated = true;
                 state.token = action.payload.accessToken;
                 state.refreshToken = action.payload.refreshToken;
                 state.user = action.payload.user
             })
             .addCase(loginUser.rejected, (state, action) => {
-                state.loading = false;
+                state.loading = 'failed';
                 state.error = action.payload as string;
             })
     }
