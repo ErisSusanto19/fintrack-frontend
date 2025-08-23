@@ -1,5 +1,6 @@
 'use client';
 
+import Sidebar from "@/components/shared/Sidebar";
 import { useAppSelector } from "@/store/hooks";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -25,9 +26,12 @@ const MainLayout = ({children}: {children: React.ReactNode}) => {
     }
 
     return (
-        <>
-            {children}
-        </>
+        <div className="flex">
+            <Sidebar/>
+            <main className="flex-1 p-8">
+                {children}
+            </main>
+        </div>
     )
 }
 
