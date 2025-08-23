@@ -66,7 +66,7 @@ const LoginPage = () => {
 
         if(loginUser.fulfilled.match(resultAction)){
             toast.success("Login successfully!");
-            router.push('/');
+            router.push('/dashboard');
         }
     }
 

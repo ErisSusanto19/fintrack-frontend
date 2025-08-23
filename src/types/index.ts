@@ -4,61 +4,61 @@ export type TransactionType = 'INCOME' | 'EXPENSE';
 export interface User {
     id: string;
     email: string;
-    full_name: string;
+    fullName: string;
 }
 
 export interface Account {
     id: string;
-    user_id: string;
+    userId: string;
     name: string;
     type: AccountType;
     balance: number;
-    created_at: string;
-    updated_at: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export interface Category {
     id: string;
-    user_id: string;
+    userId: string;
     name: string;
     type: TransactionType;
-    created_at: string;
-    updated_at: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export interface Transaction {
     id: string;
-    user_id: string;
-    account_id: string;
-    category_id?: string | null;
-    transfer_id?: string | null;
+    userId: string;
+    accountId: string;
+    categoryId?: string | null;
+    transferId?: string | null;
     type: TransactionType;
     amount: number;
-    transaction_date: string; //YYYY-MM-DD
+    transactionDate: string; //YYYY-MM-DD
     description: string;
-    created_at: string;
-    updated_at: string;
+    createdAt: string;
+    updatedAt: string;
     attachments: Attachment[];
 }
 
 export interface Attachment {
     id: string;
-    transaction_id: string;
-    file_name: string;
-    mime_type: string;
-    storage_key: string;
-    file_size_bytes: number;
-    created_at: string
+    transactionId: string;
+    fileName: string;
+    mimeType: string;
+    storageKey: string;
+    fileSizeBytes: number;
+    createdAt: string
     url?: string | null;
 }
 
 export interface Budget {
     id: string;
-    user_id: string;
-    category_id?: string | null;
+    userId: string;
+    categoryId?: string | null;
     month: number;
     year: number;
-    amount_limit: number;
+    amountLimit: number;
 }
 
 export interface ApiError {
