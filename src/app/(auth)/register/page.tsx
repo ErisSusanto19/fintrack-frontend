@@ -25,11 +25,14 @@ import {
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useRouter } from 'next/navigation';
-import { loginUser } from '@/store/features/auth';
+import { registerUser } from '@/store/features/auth';
 import { toast } from 'sonner';
 import Link from 'next/link';
 
 const formSchema = z.object({
+    fullName: z
+        .string()
+        .min(1, { message: "Full name is required" }),
     email: z
         .string()
         .min(1, { message: "Email is required" })
@@ -40,7 +43,7 @@ const formSchema = z.object({
         .min(8, { message: "Password must be at least 8 characters." })
 })
 
-const LoginPage = () => {
+const RegisterPage = () => {
 
     const [showPassword, setShowPassword] = useState(false)
     const dispatch = useAppDispatch();
@@ -56,16 +59,17 @@ const LoginPage = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
+            fullName: '',
             email: '',
             password: ''
         },
     })
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        const resultAction = await dispatch(loginUser(values));
+        const resultAction = await dispatch(registerUser(values));
 
-        if(loginUser.fulfilled.match(resultAction)){
-            toast.success("Login successfully!");
+        if(registerUser.fulfilled.match(resultAction)){
+            toast.success("Registration successful! Welcome.");
             router.push('/dashboard');
         }
     }
@@ -76,14 +80,27 @@ const LoginPage = () => {
         <div className='flex items-center justify-center min-h-screen bg-gray-100'>
             <Card className='w-full max-w-sm'>
                 <CardHeader>
-                    <CardTitle className='text-2xl'>Login</CardTitle>
+                    <CardTitle className='text-2xl'>Register</CardTitle>
                     <CardDescription>
-                        Log in with your email and password.
+                        Create your account to start tracking your finances.
                     </CardDescription>
                 </CardHeader>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}>
                         <CardContent className='grid gap-4'>
+                            <FormField
+                                control={form.control}
+                                name='fullName'
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Full Name</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder='Your name' {...field}/>
+                                        </FormControl>
+                                        <FormMessage/>
+                                    </FormItem>
+                                )}
+                            />
                             <FormField
                                 control={form.control}
                                 name='email'
@@ -130,15 +147,15 @@ const LoginPage = () => {
                                 ):(
                                     <LogIn className='w-4 h-4 mr-2'/>
                                 )}
-                                {isLoading? "Logging in..." : "Login"}
+                                {isLoading? "Creating account..." : "Create"}
                             </Button>
                         </CardFooter>
                     </form>
                 </Form>
                 <div className="mt-4 text-sm text-center">
-                    Don't have an account?{" "}
-                    <Link href="/register" className="font-bold underline">
-                        Sign up
+                    Already have an account?{" "}
+                    <Link href="/login" className="font-bold underline">
+                        Log in
                     </Link>
                 </div>
             </Card>
@@ -146,4 +163,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage;
+export default RegisterPage;

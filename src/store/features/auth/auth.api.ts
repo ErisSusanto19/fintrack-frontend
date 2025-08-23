@@ -1,8 +1,18 @@
 import api from '@/lib/api';
-import { ApiResponse, User } from '@/types';
-import { AuthLoginPayload, AuthLoginSuccessPayload } from '@/types/auth.type';
+import { ApiResponse } from '@/types';
+import { 
+    AuthLoginPayload, 
+    AuthLoginSuccessPayload, 
+    AuthRegisterPayload, 
+    AuthRegisterSuccessPayload 
+} from '@/types/auth.type';
 
-export const login = async (credentials: AuthLoginPayload) : Promise<ApiResponse<AuthLoginSuccessPayload>> => {
+export const login = async (credentials: AuthLoginPayload): Promise<ApiResponse<AuthLoginSuccessPayload>> => {
     const response = await api.post<ApiResponse<AuthLoginSuccessPayload>>('/auth/login', credentials);
+    return response.data;
+}
+
+export const register = async (credentials: AuthRegisterPayload): Promise<ApiResponse<AuthRegisterSuccessPayload>> => {
+    const response = await api.post<ApiResponse<AuthRegisterSuccessPayload>>('/auth/register', credentials);
     return response.data;
 }

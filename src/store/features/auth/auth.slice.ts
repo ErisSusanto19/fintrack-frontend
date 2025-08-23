@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { loginUser } from './auth.thunk';
-import { User } from '../../../types'
-import { AuthLoginSuccessPayload } from '@/types/auth.type';
+import { loginUser, registerUser } from './auth.thunk';
+import { User } from '@/types'
 
 interface AuthState {
     token: string | null;
@@ -38,11 +37,12 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            //LOGIN
             .addCase(loginUser.pending, (state) => {
                 state.loading = 'pending';
                 state.error = null;
             })
-            .addCase(loginUser.fulfilled, (state, action: PayloadAction<AuthLoginSuccessPayload>) => {
+            .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = 'succeeded';
                 state.isAuthenticated = true;
                 state.token = action.payload.accessToken;
@@ -52,6 +52,23 @@ const authSlice = createSlice({
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = 'failed';
                 state.error = action.payload as string;
+            })
+
+            //REGISTER
+            .addCase(registerUser.pending, (state) => {
+                state.loading = 'pending'
+                state.error = null
+            })
+            .addCase(registerUser.fulfilled, (state, action) => {
+                state.loading = 'succeeded'
+                state.isAuthenticated = true
+                state.token = action.payload.accessToken
+                state.refreshToken = action.payload.refreshToken
+                state.user = action.payload.user
+            })
+            .addCase(registerUser.rejected, (state, action) => {
+                state.loading = 'failed'
+                state.error = action.payload as string
             })
     }
 })
