@@ -47,17 +47,17 @@ const AccountsPage = () => {
 
     const handleFormSubmit = async (values: any) => {
         if (selectedAccount) {
-        const result = await dispatch(editAccount({ id: selectedAccount.id, data: values }));
-        if (editAccount.fulfilled.match(result)) {
-            toast.success("Account updated successfully!");
-            setIsFormOpen(false);
-        }
+            const result = await dispatch(editAccount({ id: selectedAccount.id, data: values }));
+            if (editAccount.fulfilled.match(result)) {
+                toast.success("Account updated successfully!");
+                setIsFormOpen(false);
+            }
         } else {
-        const result = await dispatch(addAccount(values));
-        if (addAccount.fulfilled.match(result)) {
-            toast.success("Account created successfully!");
-            setIsFormOpen(false);
-        }
+            const result = await dispatch(addAccount(values));
+            if (addAccount.fulfilled.match(result)) {
+                toast.success("Account created successfully!");
+                setIsFormOpen(false);
+            }
         }
     };
 
@@ -78,11 +78,11 @@ const AccountsPage = () => {
 
     const handleDeleteAccount = async () => {
         if (accountToDelete) {
-        const result = await dispatch(removeAccount(accountToDelete.id));
-        if (removeAccount.fulfilled.match(result)) {
-            toast.success("Account deleted successfully!");
-            setIsDeleteOpen(false);
-        }
+            const result = await dispatch(removeAccount(accountToDelete.id));
+            if (removeAccount.fulfilled.match(result)) {
+                toast.success("Account deleted successfully!");
+                setIsDeleteOpen(false);
+            }
         }
     };
 
@@ -151,31 +151,31 @@ const AccountsPage = () => {
 
             <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
                 <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>{selectedAccount ? 'Edit Account' : 'Create New Account'}</DialogTitle>
-                </DialogHeader>
-                <AccountForm
-                    defaultValues={selectedAccount}
-                    onSubmit={handleFormSubmit}
-                    isEditMode={!!selectedAccount}
-                />
+                    <DialogHeader>
+                        <DialogTitle>{selectedAccount ? 'Edit Account' : 'Create New Account'}</DialogTitle>
+                    </DialogHeader>
+                    <AccountForm
+                        defaultValues={selectedAccount}
+                        onSubmit={handleFormSubmit}
+                        isEditMode={!!selectedAccount}
+                    />
                 </DialogContent>
             </Dialog>
             
             <AlertDialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
                 <AlertDialogContent>
-                <AlertDialogHeader>
-                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete your account: "{accountToDelete?.name}".
-                    </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDeleteAccount} className="bg-red-500">
-                    Delete
-                    </AlertDialogAction>
-                </AlertDialogFooter>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This action cannot be undone. This will permanently delete your account: "{accountToDelete?.name}".
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={handleDeleteAccount} className="bg-red-500">
+                            Delete
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
         </div>
