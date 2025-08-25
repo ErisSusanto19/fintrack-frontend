@@ -27,29 +27,24 @@ export interface Category {
 }
 
 export interface Transaction {
-    id: string;
-    userId: string;
-    accountId: string;
-    categoryId?: string | null;
-    transferId?: string | null;
-    type: TransactionType;
-    amount: number;
-    transactionDate: string; //YYYY-MM-DD
-    description: string;
-    createdAt: string;
-    updatedAt: string;
-    attachments: Attachment[];
+  id: string;
+  accountId: string;
+  accountName: string;
+  categoryId: string | null;
+  categoryName: string | null;
+  type: TransactionType;
+  amount: number;
+  transactionDate: string; // 'YYYY-MM-DD'
+  description: string;
+  attachments: Attachment[];
 }
 
 export interface Attachment {
-    id: string;
-    transactionId: string;
-    fileName: string;
-    mimeType: string;
-    storageKey: string;
-    fileSizeBytes: number;
-    createdAt: string
-    url?: string | null;
+  id: string;
+  fileName: string;
+  mimeType: string;
+  size: number;
+  url: string;
 }
 
 export interface Budget {
@@ -89,4 +84,19 @@ export interface ApiResponse<T> {
     success: boolean;
     data: T | null;
     error: ApiError | null;
+}
+
+export interface PaginatedData<T> {
+    content: T[];
+    page: number;
+    size: number;
+    totalPages: number;
+    totalElements: number;
+    last: boolean
+}
+
+export interface PaginatedApiResponse<T> {
+    success: boolean;
+    data: PaginatedData<T> | null;
+    error: ApiError | null
 }

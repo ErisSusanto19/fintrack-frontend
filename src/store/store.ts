@@ -3,6 +3,7 @@ import authReducer from './features/auth/auth.slice';
 import accountsReducer from './features/accounts/accounts.slice'
 import dashboardReducer from './features/dashboard/dashboard.slice'
 import categoriesReducer from './features/categories/categories.slice'
+import transactionsReducer from './features/transactions/transactions.slice'
 import {
     persistStore,
     persistReducer,
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
     auth: authReducer,
     accounts: accountsReducer,
     dashboard: dashboardReducer,
-    categories: categoriesReducer
+    categories: categoriesReducer, 
+    transactions: transactionsReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
