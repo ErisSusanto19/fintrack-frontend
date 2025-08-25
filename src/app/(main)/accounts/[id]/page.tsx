@@ -8,6 +8,7 @@ import { clearSelectedAccount } from '@/store/features/accounts/accounts.slice';
 import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { formatCurrency } from '@/lib/utils';
 
 const AccountDetailPage = () => {
   const dispatch = useAppDispatch();
@@ -52,10 +53,7 @@ const AccountDetailPage = () => {
       <h1 className="text-3xl font-bold">{account.name}</h1>
       <p className="text-gray-500">{account.type}</p>
       <div className="mt-8 text-4xl font-light">
-        {new Intl.NumberFormat('id-ID', {
-          style: 'currency',
-          currency: 'IDR',
-        }).format(account.balance)}
+        {formatCurrency(account.balance)}
       </div>
       
     </div>

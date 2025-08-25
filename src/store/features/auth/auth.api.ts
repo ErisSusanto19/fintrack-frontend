@@ -4,7 +4,8 @@ import {
     AuthLoginPayload, 
     AuthLoginSuccessPayload, 
     AuthRegisterPayload, 
-    AuthRegisterSuccessPayload 
+    AuthRegisterSuccessPayload,
+    AuthLogoutPayload
 } from '@/types/auth.type';
 
 export const login = async (credentials: AuthLoginPayload): Promise<ApiResponse<AuthLoginSuccessPayload>> => {
@@ -14,5 +15,10 @@ export const login = async (credentials: AuthLoginPayload): Promise<ApiResponse<
 
 export const register = async (credentials: AuthRegisterPayload): Promise<ApiResponse<AuthRegisterSuccessPayload>> => {
     const response = await api.post<ApiResponse<AuthRegisterSuccessPayload>>('/auth/register', credentials);
+    return response.data;
+}
+
+export const logout = async (payload: AuthLogoutPayload): Promise<ApiResponse<null>> => {
+    const response = await api.post<ApiResponse<null>>('/auth/logout', payload);
     return response.data;
 }

@@ -14,6 +14,7 @@ import { Account } from "@/types";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { AccountActions } from "@/components/features/accounts/account-actions";
 import { useRouter } from "next/navigation";
+import { formatCurrency } from "@/lib/utils";
 
 const accountTypes = {
     "BANK": "Bank",
@@ -134,12 +135,7 @@ const AccountsPage = () => {
                             >
                                 <TableCell>{account.name}</TableCell>
                                 <TableCell>{account.type? accountTypes[account.type] : "-"}</TableCell>
-                                <TableCell className="text-right">
-                                    {new Intl.NumberFormat('id-ID', {
-                                        style: 'currency',
-                                        currency: 'IDR'
-                                    }).format(account.balance)}
-                                </TableCell>
+                                <TableCell className="text-right">{formatCurrency(account.balance)}</TableCell>
                                 <TableCell>
                                     <AccountActions
                                         account={account}

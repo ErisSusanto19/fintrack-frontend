@@ -22,3 +22,7 @@ export interface AuthRegisterSuccessPayload {
     refreshToken: string;
     user: User
 }
+
+export interface AuthLogoutPayload {
+    refreshToken: string;
+}

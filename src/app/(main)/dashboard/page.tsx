@@ -1,20 +1,63 @@
 'use client';
 
-import { useAppSelector } from "@/store/hooks";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatCurrency } from "@/lib/utils";
+import { loadOverview } from "@/store/features/dashboard";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { ArrowDownCircle, ArrowUpCircle, DollarSign, Loader2 } from "lucide-react";
+import { useEffect } from "react";
 
 const DashboardPage = () => {
-
+    const dispatch = useAppDispatch();
     const { user } = useAppSelector(state => state.auth);
+    const { overview, loading } = useAppSelector(state => state.dashboard)
+
+    useEffect(() => {
+        const now = new Date()
+        const year = now.getFullYear()
+        const month = now.getMonth() + 1
+
+        dispatch(loadOverview({ year, month }))
+    }, [dispatch])
 
     return (
-        <div className='flex flex-col items-center justify-center min-h-screen'>
-            <h1 className="text-4xl font-bold">Welcome to your Dashboard!</h1>
-            {user? (
-                    <p className="mt-4 text-xl">Hello, {user.fullName}</p>
-                ) : (
-                    <p className="mt-4 text-xl">Loading user data...</p>
-                )
-            }
+        <div>
+            <h1 className="text-3xl font-bold mb-4">Welcome back, {user?.fullName || 'User'}!</h1>
+            <p className="text-gray-500 mb-8">Here is your financial overview for this month.</p>
+
+            {loading == 'pending' && <Loader2 className="w-8 h-8 animate-spin"/>}
+
+            {loading == 'succeeded' && overview && (
+                <div className="grid gap-4 md:grid-cols-3">
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between pb-2">
+                            <CardTitle className="text-sm font-medium">Net Cash Flow</CardTitle>
+                            <DollarSign className="w-4 h-5 text-muted-foreground"/>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold">{formatCurrency(overview.netCashFlow)}</div>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between pb-2">
+                            <CardTitle className="text-sm font-medium">Income</CardTitle>
+                            <ArrowUpCircle className="w-4 h-5 text-green-500"/>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold">{formatCurrency(overview.totalIncome)}</div>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between pb-2">
+                            <CardTitle className="text-sm font-medium">Expense</CardTitle>
+                            <ArrowDownCircle className="w-4 h-5 text-red-500"/>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold">{formatCurrency(overview.totalExpense)}</div>
+                        </CardContent>
+                    </Card>
+                </div>
+            )}
         </div>
     )
 

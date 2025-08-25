@@ -61,6 +61,25 @@ export interface Budget {
     amountLimit: number;
 }
 
+export interface DashboardOverview {
+    totalIncome: number;
+    totalExpense: number;
+    netCashFlow: number;
+}
+
+export interface CategoryBreakdown {
+    categoryId: string;
+    categoryName: string;
+    totalAmount: number;
+    percentage: number;
+}
+
+export interface CashflowTrend {
+    date: string;
+    income: number;
+    expense: number;
+}
+
 export interface ApiError {
     code: string;
     message: string;
