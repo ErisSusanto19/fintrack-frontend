@@ -58,7 +58,7 @@ export const addTransaction = createAsyncThunk<Transaction, CreateTransactionPay
 )
 
 export const editTransaction = createAsyncThunk<Transaction, UpdateTransactionPayload, {rejectValue: string}>(
-    'transactions/add',
+    'transactions/edit',
     async ({id, data}, { rejectWithValue }) => {
         try {
             const response = await transactionsApi.updateTransaction({id, data})

@@ -17,7 +17,7 @@ export const getTransactionById = async (transactionId: string): Promise<ApiResp
 }
 
 export const createTransaction = async (transactionData: CreateTransactionPayload): Promise<ApiResponse<Transaction>> => {
-    const response = await api.post<ApiResponse<Transaction>>('/transactions')
+    const response = await api.post<ApiResponse<Transaction>>('/transactions', transactionData)
     return response.data
 }
 

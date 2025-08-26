@@ -112,7 +112,7 @@ const AccountsPage = () => {
                     <TableBody>
                         {loading == 'pending' && (
                             <TableRow>
-                                <TableCell colSpan={3} className="text-center">
+                                <TableCell colSpan={4} className="text-center">
                                     <Loader2 className="w-4 h-4 mr-2 animate-spin"/>
                                     Loading...
                                 </TableCell>
@@ -121,7 +121,7 @@ const AccountsPage = () => {
 
                         {loading == 'succeeded' && accounts.length == 0 && (
                             <TableRow>
-                                <TableCell colSpan={3} className="text-center">
+                                <TableCell colSpan={4} className="text-center">
                                     No accounts found. Add one to get started!
                                 </TableCell>
                             </TableRow>

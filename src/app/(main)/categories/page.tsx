@@ -109,7 +109,7 @@ const CategoriesPage = () => {
                     <TableBody>
                         {loading == 'pending' && (
                             <TableRow>
-                                <TableCell colSpan={2} className="text-center">
+                                <TableCell colSpan={3} className="text-center">
                                     <Loader2 className="w-4 h-4 animate-spin"/>
                                     Loading...
                                 </TableCell>
@@ -118,7 +118,7 @@ const CategoriesPage = () => {
 
                         {loading == 'succeeded' && categories.length == 0 && (
                             <TableRow>
-                                <TableCell colSpan={2} className="text-center">
+                                <TableCell colSpan={3} className="text-center">
                                     No categories found. Add one to get started!
                                 </TableCell>
                             </TableRow>
