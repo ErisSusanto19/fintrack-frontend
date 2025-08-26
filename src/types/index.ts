@@ -49,8 +49,8 @@ export interface Attachment {
 
 export interface Budget {
     id: string;
-    userId: string;
     categoryId?: string | null;
+    categoryName?: string | null;
     month: number;
     year: number;
     amountLimit: number;
