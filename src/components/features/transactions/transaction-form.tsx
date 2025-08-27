@@ -25,13 +25,13 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>
 
-interface TransactionFormPorps {
+interface TransactionFormProps {
     onSubmit: (values: any) => void;
     defaultValues: Transaction | null;
     isEditMode: boolean;
 }
 
-const TransactionForm = ({onSubmit, defaultValues, isEditMode}: TransactionFormPorps) => {
+const TransactionForm = ({onSubmit, defaultValues, isEditMode}: TransactionFormProps) => {
     const { items: accounts } = useAppSelector(state => state.accounts)
     const { items: categories } = useAppSelector(state => state.categories)
     const { loading } = useAppSelector(state => state.transactions)

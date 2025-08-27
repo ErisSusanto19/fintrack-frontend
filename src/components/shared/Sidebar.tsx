@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CircleGauge, Gauge, LayoutDashboard, Shapes, Target, TrendingUp, Wallet } from 'lucide-react'
+import { CalendarClock, CircleGauge, Gauge, LayoutDashboard, RefreshCcw, Repeat, Shapes, Target, TrendingUp, Wallet } from 'lucide-react'
 
 const navLinks = [
     {href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard},
@@ -10,6 +10,7 @@ const navLinks = [
     {href: '/categories', label: 'Categories', icon: Shapes},
     {href: '/transactions', label: 'Transactions', icon: TrendingUp},
     {href: '/budgets', label: 'Budgets', icon: CircleGauge},
+    {href: '/recurring-transactions', label: 'Recurring Transactions', icon: Repeat},
 ]
 
 const Sidebar = () => {
