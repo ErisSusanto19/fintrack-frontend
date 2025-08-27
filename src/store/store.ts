@@ -5,6 +5,7 @@ import dashboardReducer from './features/dashboard/dashboard.slice'
 import categoriesReducer from './features/categories/categories.slice'
 import transactionsReducer from './features/transactions/transactions.slice'
 import budgetsReducer from './features/budgets/budgets.slice'
+import recurringReducer from './features/recurring/recurring.slice'
 import {
     persistStore,
     persistReducer,
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
     dashboard: dashboardReducer,
     categories: categoriesReducer, 
     transactions: transactionsReducer,
-    budgets: budgetsReducer
+    budgets: budgetsReducer,
+    recurring: recurringReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -59,6 +59,22 @@ export interface Budget {
     percentageSpent: number;
 }
 
+export interface RecurringTransaction {
+  id: string;
+  accountId: string;
+  accountName?: string;
+  categoryId: string;
+  categoryName?: string;
+  type: 'INCOME' | 'EXPENSE';
+  amount: number;
+  cronExpression: string;
+  startDate: string;
+  endDate: string | null;
+  description: string;
+  isActive: boolean;
+  lastExecutionDate: string | null;
+}
+
 export interface DashboardOverview {
     totalIncome: number;
     totalExpense: number;
