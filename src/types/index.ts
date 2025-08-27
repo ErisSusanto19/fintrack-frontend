@@ -54,6 +54,9 @@ export interface Budget {
     month: number;
     year: number;
     amountLimit: number;
+    amountSpent: number;
+    remainingAmount: number;
+    percentageSpent: number;
 }
 
 export interface DashboardOverview {

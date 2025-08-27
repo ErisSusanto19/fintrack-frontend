@@ -3,8 +3,10 @@ import { ApiResponse, Budget } from "@/types";
 import { CreateBudgetPayload, UpdateBudgetPayload } from "@/types/budgets.type";
 import { AxiosResponse } from "axios";
 
-export const getBudgets = async (): Promise<ApiResponse<Budget[]>> => {
-    const response = await api.get<ApiResponse<Budget[]>>('/budgets')
+export const getBudgets = async (year: number, month: number): Promise<ApiResponse<Budget[]>> => {
+    const response = await api.get<ApiResponse<Budget[]>>('/budgets', {
+        params: {year, month}
+    })
     return response.data;
 }
 

@@ -3,11 +3,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as budgetsApi from './budgets.api'
 import { CreateBudgetPayload, UpdateBudgetPayload } from "@/types/budgets.type";
 
-export const loadBudgets = createAsyncThunk<Budget[], void, { rejectValue: string}>(
+export const loadBudgets = createAsyncThunk<Budget[], {year: number, month: number}, { rejectValue: string}>(
     'budgets/load',
-    async (_, { rejectWithValue }) => {
+    async ({year, month}, { rejectWithValue }) => {
         try {
-            const response = await budgetsApi.getBudgets()
+            const response = await budgetsApi.getBudgets(year, month)
 
             if(response.success && response.data){
                 return response.data

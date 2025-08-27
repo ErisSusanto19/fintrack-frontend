@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Shapes, TrendingUp, Wallet } from 'lucide-react'
+import { CircleGauge, Gauge, LayoutDashboard, Shapes, Target, TrendingUp, Wallet } from 'lucide-react'
 
 const navLinks = [
     {href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard},
     {href: '/accounts', label: 'Accounts', icon: Wallet},
     {href: '/categories', label: 'Categories', icon: Shapes},
     {href: '/transactions', label: 'Transactions', icon: TrendingUp},
+    {href: '/budgets', label: 'Budgets', icon: CircleGauge},
 ]
 
 const Sidebar = () => {

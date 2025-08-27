@@ -1,5 +1,5 @@
 export interface CreateBudgetPayload {
-    categoryId: string;
+    categoryId: string | null;
     year: number;
     month: number;
     amountLimit: number;
@@ -7,5 +7,7 @@ export interface CreateBudgetPayload {
 
 export interface UpdateBudgetPayload {
     id: string;
-    data: CreateBudgetPayload
+    data: {
+        amountLimit: number;
+    }
 }

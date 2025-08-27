@@ -32,7 +32,7 @@ const budgetsSlice = createSlice({
                 state.items = action.payload
             })
             .addCase(loadBudgets.rejected, (state, action) => {
-                state.loading = 'pending'
+                state.loading = 'failed'
                 state.error = action.payload as string
             })
 
@@ -46,7 +46,7 @@ const budgetsSlice = createSlice({
                 state.selectedItem = action.payload
             })
             .addCase(loadBudgetById.rejected, (state, action) => {
-                state.loading = 'pending'
+                state.loading = 'failed'
                 state.error = action.payload as string
             })
 
@@ -60,7 +60,7 @@ const budgetsSlice = createSlice({
                 state.items.push(action.payload)
             })
             .addCase(addBudget.rejected, (state, action) => {
-                state.loading = 'pending'
+                state.loading = 'failed'
                 state.error = action.payload as string
             })
 
@@ -77,7 +77,7 @@ const budgetsSlice = createSlice({
                 }
             })
             .addCase(editBudget.rejected, (state, action) => {
-                state.loading = 'pending'
+                state.loading = 'failed'
                 state.error = action.payload as string
             })
 
@@ -91,7 +91,7 @@ const budgetsSlice = createSlice({
                 state.items = state.items.filter(budget => budget.id !== action.payload)
             })
             .addCase(removeBudget.rejected, (state, action) => {
-                state.loading = 'pending'
+                state.loading = 'failed'
                 state.error = action.payload as string
             })
     }
