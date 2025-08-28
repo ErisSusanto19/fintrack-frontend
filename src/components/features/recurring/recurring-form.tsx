@@ -25,7 +25,7 @@ const formSchema = z.object({
         .refine(val => !isNaN(parseFloat(val)) && parseFloat(val) > 0, {
             message: "Amount must be a number greater than 0."
         }),
-    frequency: z.enum(['MONTHLY', 'WEEKLY', 'DAILY', 'EVERY_MINUTE']),
+    frequency: z.enum(['MONTHLY', 'WEEKLY', 'DAILY']),
     // day: z.string().min(1, { message: "Day is required" })
     //     .refine(val => !isNaN(parseInt(val, 10)) && parseInt(val, 10) >= 1 && parseInt(val, 10) <= 31, {
     //         message: "Please enter a valid day (1-31)."
@@ -64,7 +64,7 @@ export type RecurringFormValues = {
   categoryId: string;
   type: 'INCOME' | 'EXPENSE';
   amount: number;
-  frequency: 'MONTHLY' | 'WEEKLY' | 'DAILY' | 'EVERY_MINUTE';
+  frequency: 'MONTHLY' | 'WEEKLY' | 'DAILY';
   day: number;
   startDate: Date;
   endDate: Date | null | undefined;
@@ -101,7 +101,7 @@ const RecurringForm = ({onSubmit, defaultValues, isEditMode}: RecurringFormProps
             categoryId: defaultValues?.categoryId || '',
             type: defaultValues?.type || 'EXPENSE',
             amount: defaultValues?.amount?.toString() || '',
-            frequency: defaultValues ? initialSchedule.frequency as 'MONTHLY' | 'WEEKLY' | 'DAILY' | 'EVERY_MINUTE' : 'MONTHLY',
+            frequency: defaultValues ? initialSchedule.frequency as 'MONTHLY' | 'WEEKLY' | 'DAILY' : 'MONTHLY',
             day: defaultValues? initialSchedule.day.toString() : '',
             startDate: defaultValues?.startDate? new Date(defaultValues.startDate) : new Date(),
             endDate: defaultValues?.endDate? new Date(defaultValues.endDate) : null,
@@ -254,9 +254,6 @@ const RecurringForm = ({onSubmit, defaultValues, isEditMode}: RecurringFormProps
                                             <SelectItem value="DAILY">Daily</SelectItem>
                                             <SelectItem value="WEEKLY">Weekly</SelectItem>
                                             <SelectItem value="MONTHLY">Monthly</SelectItem>
-                                            {process.env.NODE_ENV === 'development' && (
-                                                <SelectItem value="EVERY_MINUTE">Every Minute (For Testing)</SelectItem>
-                                            )}
                                         </SelectContent>
                                     </Select>
                                 </FormItem>

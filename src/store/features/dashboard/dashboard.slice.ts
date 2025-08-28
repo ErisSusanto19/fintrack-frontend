@@ -1,6 +1,5 @@
 import { CashflowTrend, CategoryBreakdown, DashboardOverview } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
-import { getOverview } from "./dashboard.api";
 import { loadCashflowTrend, loadCategoryBreakdown, loadOverview } from "./dashboard.thunk";
 
 interface DashboardState {

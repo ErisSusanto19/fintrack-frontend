@@ -24,7 +24,6 @@ const generateCronExpression = (values: RecurringFormValues): string => {
     if (frequency === 'DAILY') return '0 0 0 * * *';
     if (frequency === 'WEEKLY') return `0 0 0 * * ${day}`;
     if (frequency === 'MONTHLY') return `0 0 0 ${day} * *`;
-    if (frequency === 'EVERY_MINUTE') return '0 * * * * *';
     return '';
 };
 
