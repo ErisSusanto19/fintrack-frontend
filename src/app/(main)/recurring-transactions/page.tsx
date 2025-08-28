@@ -24,6 +24,7 @@ const generateCronExpression = (values: RecurringFormValues): string => {
     if (frequency === 'DAILY') return '0 0 0 * * *';
     if (frequency === 'WEEKLY') return `0 0 0 * * ${day}`;
     if (frequency === 'MONTHLY') return `0 0 0 ${day} * *`;
+    if (frequency === 'EVERY_MINUTE') return '0 * * * * *';
     return '';
 };
 
@@ -52,8 +53,16 @@ const RecurringPage = () => {
             endDate: values.endDate ? format(values.endDate, 'yyyy-MM-dd') : null,
         };
 
+        const editPayload = {
+            amount: values.amount,
+            description: values.description,
+            cronExpression: generateCronExpression(values),
+            endDate: values.endDate ? format(values.endDate, 'yyyy-MM-dd') : null,
+            isActive: values.isActive,
+        };
+
         const result = selectedSchedule
-            ? await dispatch(editRecurringTransaction({ id: selectedSchedule.id, data: payload }))
+            ? await dispatch(editRecurringTransaction({ id: selectedSchedule.id, data: editPayload }))
             : await dispatch(addRecurringTransaction(payload));
 
         if (addRecurringTransaction.fulfilled.match(result) || editRecurringTransaction.fulfilled.match(result)) {
@@ -95,6 +104,7 @@ const RecurringPage = () => {
                             <TableHead>Category</TableHead>
                             <TableHead>Account</TableHead>
                             <TableHead className="text-right">Amount</TableHead>
+                            <TableHead>Last Run</TableHead>
                             <TableHead>Next Run</TableHead>
                             <TableHead>Status</TableHead>
                             <TableHead className="w-[100px]">Actions</TableHead>
@@ -125,7 +135,8 @@ const RecurringPage = () => {
                                 <TableCell className={`text-right ${schedule.type === 'INCOME' ? 'text-green-600' : 'text-red-600'}`}>
                                     {formatCurrency(schedule.amount)}
                                 </TableCell>
-                                <TableCell>{'N/A'}</TableCell>
+                                <TableCell>{schedule.lastExecutionDate || 'N/A'}</TableCell>
+                                <TableCell>{schedule.nextExecutionDate || 'N/A'}</TableCell>
                                 <TableCell>
                                     <Badge variant={schedule.isActive ? 'default' : 'destructive'}>
                                         {schedule.isActive ? 'Active' : 'Inactive'}
@@ -146,7 +157,7 @@ const RecurringPage = () => {
 
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogContent className="sm:max-w-md">
-                    <DialogHeader>
+                    <DialogHeader className='border-b pb-3'>
                         <DialogTitle>{selectedSchedule ? 'Edit Schedule' : 'Create New Schedule'}</DialogTitle>
                     </DialogHeader>
                     <RecurringForm 

@@ -73,6 +73,7 @@ export interface RecurringTransaction {
   description: string;
   isActive: boolean;
   lastExecutionDate: string | null;
+  nextExecutionDate: string | null;
 }
 
 export interface DashboardOverview {

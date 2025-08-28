@@ -10,7 +10,7 @@ const navLinks = [
     {href: '/categories', label: 'Categories', icon: Shapes},
     {href: '/transactions', label: 'Transactions', icon: TrendingUp},
     {href: '/budgets', label: 'Budgets', icon: CircleGauge},
-    {href: '/recurring-transactions', label: 'Recurring Transactions', icon: Repeat},
+    {href: '/recurring-transactions', label: 'Recurring Transactions', icon: CalendarClock},
 ]
 
 const Sidebar = () => {

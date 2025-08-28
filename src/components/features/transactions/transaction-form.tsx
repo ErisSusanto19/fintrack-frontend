@@ -119,46 +119,48 @@ const TransactionForm = ({onSubmit, defaultValues, isEditMode}: TransactionFormP
                     )}
                 />
 
-                <FormField
-                    name="amount"
-                    control={form.control}
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Amount</FormLabel>
-                            <FormControl>
-                                <Input 
-                                    type="number" 
-                                    placeholder="0.00" 
-                                    {...field} 
-                                    disabled={isLoading}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-                <FormField
-                    name="type"
-                    control={form.control}
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Type</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isLoading}>
+                <div className="grid grid-cols-2 gap-4">
+                    <FormField
+                        name="amount"
+                        control={form.control}
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Amount</FormLabel>
                                 <FormControl>
-                                    <SelectTrigger>
-                                        <SelectValue />
-                                    </SelectTrigger>
+                                    <Input 
+                                        type="number" 
+                                        placeholder="0.00" 
+                                        {...field} 
+                                        disabled={isLoading}
+                                    />
                                 </FormControl>
-                                <SelectContent>
-                                    <SelectItem value="EXPENSE">Expense</SelectItem>
-                                    <SelectItem value="INCOME">Income</SelectItem>
-                                </SelectContent>
-                            </Select>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        name="type"
+                        control={form.control}
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Type</FormLabel>
+                                <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isLoading}>
+                                    <FormControl>
+                                        <SelectTrigger>
+                                            <SelectValue />
+                                        </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                        <SelectItem value="EXPENSE">Expense</SelectItem>
+                                        <SelectItem value="INCOME">Income</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
 
                 <FormField
                     name="description"
